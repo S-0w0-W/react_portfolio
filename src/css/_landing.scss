@@ -1,0 +1,53 @@
+.background{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../assets/images/the_boys.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+
+    .modal {
+        height: 100%;
+        width: 100%;
+    }
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        .modal {
+          -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+          background-color: rgba(20, 20, 20, 0.5);  
+        }
+        .warning {
+          display: none;
+        }
+    }
+}
+
+.landing_page_content{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+
+    .landing_title{
+        animation: color-change 10s infinite alternate;
+        padding-top: 30vh;
+        font-size: 50px;
+        font-weight: 800;
+        color: rgb(40, 88, 90);
+        
+    }
+    @keyframes color-change {
+        0% { color: #A88740; }
+        25% {color: #F9E0AC}
+        50% {color: #A0A63F;}
+        100% { color: #A84040 }
+    }
+
+    .landing_description{
+        padding-top: 30px;
+        font-size: 20px;
+        font-weight: 200;
+        color: rgb(198, 209, 209);
+    }
+}
+
+
