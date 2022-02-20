@@ -1,6 +1,10 @@
 import React from "react";
 import "../css/_navBar.scss"
- 
+import homeLogo from "../assets/icons/icons8-home-48.png"
+import aboutLogo from "../assets/icons/icons8-person-48.png"
+import projectsLogo from "../assets/icons/icons8-work-48.png"
+import contactLogo from "../assets/icons/icons8-phone-50.png"
+
 export default class Navigation extends React.Component{
   constructor(props) {
     super(props);
@@ -22,7 +26,7 @@ export default class Navigation extends React.Component{
                             onClick={()=>{
                             this.props.scrollToRef('landing')
                         }}>
-                            <div className="tab_icon"/>
+                            <img className="tab_icon"  src={homeLogo} />
                             <div className="tab_text_container">
                                 <div className="tab_text">Home</div>
                             </div>
@@ -33,7 +37,7 @@ export default class Navigation extends React.Component{
                             onClick={()=>{
                             this.props.scrollToRef('about')
                         }}>
-                            <div className="tab_icon"/>
+                            <img className="tab_icon"  src={aboutLogo} />
                             <div className="tab_text_container">
                                 <div className="tab_text">About</div>                         
                             </div>
@@ -44,7 +48,7 @@ export default class Navigation extends React.Component{
                             onClick={()=>{
                             this.props.scrollToRef('projects')
                         }}>
-                            <div className="tab_icon"/>
+                            <img className="tab_icon"  src={projectsLogo} />
                             <div className="tab_text_container">
                                 <div className="tab_text">Projects</div>
                             </div>
@@ -55,7 +59,7 @@ export default class Navigation extends React.Component{
                             onClick={()=>{
                             this.props.scrollToRef('contact')
                         }}>
-                            <div className="tab_icon"/>
+                            <img className="tab_icon"  src={contactLogo} />
                             <div className="tab_text_container">
                                 <div className="tab_text">Contact</div>                            
                             </div>

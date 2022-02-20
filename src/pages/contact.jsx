@@ -23,7 +23,9 @@ export default class Contact extends React.Component{
                           data-aos-duration="800">
                             Contact
                     </div>
-                    <div className="landing_description">
+                    <div  className="landing_description"
+                          data-aos="fade-up"
+                          data-aos-duration="1200">
                         (ʃƪ´⌣`) peep my stuff out fam (´⌣`ʃƪ)
                     </div>
                 </div>

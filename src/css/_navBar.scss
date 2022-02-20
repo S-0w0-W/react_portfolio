@@ -36,7 +36,9 @@
                     .tab_icon{
                         height: 20px;
                         width: 20px;
-                        background-color: aquamarine;
+                        background-position: center center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
                     }
                     .tab_text_container{
                         padding-left: 10px;
