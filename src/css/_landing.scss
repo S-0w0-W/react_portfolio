@@ -29,7 +29,6 @@
 
     .landing_title{
         animation: color-change 10s infinite alternate;
-        padding-top: 100px;
         font-size: 50px;
         font-weight: 800;
         color: rgb(40, 88, 90);
@@ -42,10 +41,9 @@
         100% { color: #A84040 }
     }
 
-    .signature{
-        padding-top: 10vh;
-        height: 40vh;
-        width: auto;
+    .signature_container{
+        display: flex;
+        justify-content: center;
     }
 
     .landing_description{
