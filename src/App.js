@@ -13,13 +13,16 @@ export default class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-
+      startAbout: false,
     }
-    this.handleTab = this.handleTab.bind(this)
     this.landingRef = React.createRef();
     this.aboutRef = React.createRef();
     this.projectsRef = React.createRef();
     this.contactRef = React.createRef();
+    this.handleTab = this.handleTab.bind(this)
+
+    this.handleTab = this.handleTab.bind(this)
+    this.handleStartThree = this.handleStartThree.bind(this)
   }
 
   handleTab(tab){
@@ -39,15 +42,20 @@ export default class App extends React.Component{
     }
   }
 
+  handleStartThree(){
+    this.setState({startAbout: true})
+  }
+
   render(){
+    const {startAbout} = this.state
     return(
       <div className="App">
         <Navigation
           scrollToRef = {this.handleTab}
         />
-        <div ref={this.landingRef}><Landing/></div>
-        <div ref={this.aboutRef}><About/></div>
-        <div ref={this.projectsRef}><Projects/></div>
+        <div ref={this.landingRef}><Landing startThree = {this.handleStartThree}/></div>
+        <div ref={this.aboutRef}><About start={startAbout} /></div>
+        <div ref={this.projectsRef}><Projects start={startAbout}/></div>
         <div ref={this.contactRef}><Contact/></div>
       </div>
     )

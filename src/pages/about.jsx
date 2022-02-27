@@ -3,9 +3,6 @@ import "../css/_landing.scss"
 import "../css/_about.scss"
 import AOS from 'aos';
 import "aos/dist/aos.css";
-import * as THREE from 'three';
-import LoadGLB from "../components/LoadGLB";
-
 
 export default class About extends React.Component{
   constructor(props) {
@@ -25,6 +22,7 @@ export default class About extends React.Component{
   }
 
   componentDidUpdate(){
+    // console.log(this.props.start)
   }
 
   handleResize(){
@@ -41,11 +39,6 @@ export default class About extends React.Component{
                           data-aos="fade-up"
                           data-aos-duration="800">
                             About
-                    </div>
-                    <div className="threeContent" ref={this.threeCanvas}>
-                      <LoadGLB
-                        trackMouse={true}
-                      />
                     </div>
                 </div>
             </div>

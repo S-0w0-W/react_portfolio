@@ -16,12 +16,12 @@ export default class Landing extends React.Component{
 
   }
 
-  handleSig(){
+  handleSig(svgDuration){
     anime({
       targets: '#signature path',
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: 'easeInOutSine',
-      duration: 1000,
+      duration: svgDuration,
       delay: function(el, i) { return i * 250 },
       direction: 'alternate',
       loop: false
@@ -29,7 +29,11 @@ export default class Landing extends React.Component{
   }
 
   componentDidMount(){
-    this.handleSig()
+    let svgDuration = 1000
+    this.handleSig(svgDuration)
+    setTimeout(() => {
+      this.props.startThree()
+    }, (svgDuration+500));
   }
 
   render(){
