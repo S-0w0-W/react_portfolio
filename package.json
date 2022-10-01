@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://s-0w0-w.github.io/react_portfolio/",
   "dependencies": {
+    "@react-three/drei": "^9.14.3",
+    "@react-three/fiber": "^8.0.27",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.3",
     "@testing-library/user-event": "^13.5.0",
