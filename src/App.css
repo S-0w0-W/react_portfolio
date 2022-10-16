@@ -1,6 +1,8 @@
 .App {
   text-align: center;
   overflow-x:hidden;
+  display: flex;
+  flex-direction: column;
 }
 html {
   scroll-behavior: smooth;

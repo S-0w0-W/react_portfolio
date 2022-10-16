@@ -39,7 +39,7 @@ export default class ThreeCanvas extends React.Component {
 
     this.state.controls = new OrbitControls(this.state.camera, this.state.renderer.domElement)
     // this.state.controls.enableRotate = false;
-    // this.state.controls.enableZoom = false;
+    this.state.controls.enableZoom = false;
     // this.state.controls.enablePan = false;
     
     let pointlight =  new THREE.PointLight(0xffffff, 1)

@@ -1,0 +1,74 @@
+.projects_page_content{
+  position: relative;
+
+  .threeContent{
+    position: absolute;
+  }
+  .projects{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 50px;
+    width: 100vw;
+    .projectCard_container{
+      display: flex;
+      justify-content: center;
+      height: fit-content;
+      padding: 0px 5vw 50px 5vw;
+    
+      .projectCard{
+        height: 30vh;
+        width: 100%;
+        filter: drop-shadow(16px 16px 10px black);
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, .15);
+        backdrop-filter: blur(5px);
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+
+        .projectPeriod{
+          display: flex;
+          justify-content: flex-start ;
+          font-size: larger;
+          font-weight: 600;
+          color: rgb(183, 105, 26);
+          margin-bottom: 30px;
+        }
+        .projectDesc{
+          display: flex;
+          text-align: start;
+          height: 100%;
+          text-overflow: ellipsis;
+          color: aliceblue;
+        }
+      }
+    }
+  }
+
+  .typewriter{
+    width: fit-content;
+    display: flex;
+    margin-left: 5vw;
+  }
+  .typewriter h1{
+    color: #fff;
+    font-family: monospace;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+        typing 1.5s steps(30, end) forwards,
+        blink-caret 2s infinite;
+  }
+  
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from { border-color: transparent }
+    to { border-color: orange }
+  }
+}

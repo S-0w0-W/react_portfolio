@@ -2,6 +2,11 @@ import React from "react";
 import logo from './logo.svg';
 import './App.css';
 import Navigation from "./components/navBar"
+import AOS from 'aos';
+import homeLogo from "./assets/icons/icons8-home-48.png"
+import aboutLogo from "./assets/icons/icons8-person-48.png"
+import projectsLogo from "./assets/icons/icons8-work-48.png"
+import contactLogo from "./assets/icons/icons8-phone-50.png"
 
 // pages
 import Landing from './pages/landing';
@@ -14,6 +19,7 @@ export default class App extends React.Component{
     super(props);
     this.state = {
       startAbout: false,
+      pageRatios: {},
     }
     this.landingRef = React.createRef();
     this.aboutRef = React.createRef();
@@ -23,6 +29,33 @@ export default class App extends React.Component{
 
     this.handleTab = this.handleTab.bind(this)
     this.handleStartThree = this.handleStartThree.bind(this)
+
+    this.navBarInfo = [
+      {
+        name: "landing",
+        text: "Home",
+        icon: homeLogo,
+      },
+      {
+        name: "about",
+        text: "About",
+        icon: aboutLogo,
+      },
+      {
+        name: "projects",
+        text: "Projects",
+        icon: projectsLogo,
+      },
+      {
+        name: "contact",
+        text: "contact",
+        icon: contactLogo,
+      },
+    ]
+  }
+
+  componentDidMount(){
+    AOS.init()
   }
 
   handleTab(tab){
@@ -46,17 +79,45 @@ export default class App extends React.Component{
     this.setState({startAbout: true})
   }
 
+  setPageRatio(pageName, ratio){
+    let pageRatios = {...this.state.pageRatios}
+    pageRatios[pageName] = ratio
+    this.setState({pageRatios})
+  }
+
   render(){
     const {startAbout} = this.state
     return(
       <div className="App">
         <Navigation
           scrollToRef = {this.handleTab}
+          pageViewRatios = {this.state.pageRatios}
+          tabsInfo = {this.navBarInfo}
         />
-        <div ref={this.landingRef}><Landing startThree = {this.handleStartThree}/></div>
-        <div ref={this.aboutRef}><About start={startAbout} /></div>
-        <div ref={this.projectsRef}><Projects start={startAbout}/></div>
-        <div ref={this.contactRef}><Contact/></div>
+        <div ref={this.landingRef}>
+          <Landing 
+            startThree = {this.handleStartThree}
+            trackpage = {(ratio)=>this.setPageRatio("landing", ratio)}
+          />
+        </div>
+        <div ref={this.aboutRef}>
+          <About 
+            start={startAbout}
+            trackpage = {(ratio)=>this.setPageRatio("about", ratio)}
+          />
+        </div>
+        <div ref={this.projectsRef}>
+          <Projects
+            start={startAbout}
+            trackpage = {(ratio)=>this.setPageRatio("projects", ratio)}
+          />
+        </div>
+        <div ref={this.contactRef}>
+          <Contact
+            start={startAbout}
+            trackpage = {(ratio)=>this.setPageRatio("contact", ratio)}
+          />
+        </div>
       </div>
     )
   }
