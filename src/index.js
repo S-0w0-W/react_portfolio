@@ -14,8 +14,8 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />}/ >
-        <Route path="audiovis" element={<AudioPage />} />
+        <Route path="/react_portfolio" element={<App />} />
+        <Route path="/react_portfolio/audiovis" element={<AudioPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
