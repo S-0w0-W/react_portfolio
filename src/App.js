@@ -6,7 +6,7 @@ import AOS from 'aos';
 import homeLogo from "./assets/icons/icons8-home-48.png"
 import aboutLogo from "./assets/icons/icons8-person-48.png"
 import projectsLogo from "./assets/icons/icons8-work-48.png"
-import contactLogo from "./assets/icons/icons8-phone-50.png"
+import contactLogo from "./assets/icons/socials.png"
 
 // pages
 import Landing from './pages/landing';
@@ -20,6 +20,7 @@ export default class App extends React.Component{
     this.state = {
       startAbout: false,
       pageRatios: {},
+      displayNav: false,
     }
     this.landingRef = React.createRef();
     this.aboutRef = React.createRef();
@@ -48,7 +49,7 @@ export default class App extends React.Component{
       },
       {
         name: "contact",
-        text: "contact",
+        text: "Socials",
         icon: contactLogo,
       },
     ]
@@ -93,11 +94,13 @@ export default class App extends React.Component{
           scrollToRef = {this.handleTab}
           pageViewRatios = {this.state.pageRatios}
           tabsInfo = {this.navBarInfo}
+          start={this.state.displayNav}
         />
         <div ref={this.landingRef}>
           <Landing 
             startThree = {this.handleStartThree}
             trackpage = {(ratio)=>this.setPageRatio("landing", ratio)}
+            handleDisplayNav = {()=>this.setState({displayNav:true})}
           />
         </div>
         <div ref={this.aboutRef}>
@@ -118,6 +121,7 @@ export default class App extends React.Component{
             trackpage = {(ratio)=>this.setPageRatio("contact", ratio)}
           />
         </div>
+        <div className="ending">© Shiyao Wang</div>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/_landing.scss"
+import "../css/_base.scss"
 import "aos/dist/aos.css";
 import ThreeCanvas from "./threeJS/threeCanvas";
 import ModelGithub from "../assets/models/github_3d_2.glb"
@@ -127,17 +127,21 @@ export default class AudioVisualiser extends React.Component{
             height: "80vh"
           }}>
           <ThreeCanvas
+            id='ThreeCanvas'
             startAnimate={this.props.startAnimate}
-            zoom={70}
+            cameraPos={{x: 0, y: 0, z: 75}}
+            enableControl={true}
             models={[
               {
                 modelFile: Cube,
-                name: "cube",
+                name: "cube1",
                 quantity: VisLength,
                 scale: 0.3,
+                color: null,
+                mapImg: null,
               }
             ]}
-            updateModelList={(models)=>this.setState({models})}
+            updateModelList={(models) => this.setState({ models })}
           />
         </div>
       </div>

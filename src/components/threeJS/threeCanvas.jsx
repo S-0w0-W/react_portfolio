@@ -1,7 +1,9 @@
 import React from "react";
 import * as THREE from "three";
 import { GLTFLoader, Raycaster, OrbitControls, FlakesTexture, RGBELoader } from 'three-stdlib';
-import envMap from "../../assets/environmentMaps/fireplace_4k.hdr"
+// import { RenderPass } from "three-stdlib";
+// import { EffectComposer } from "three-stdlib";
+// import { UnrealBloomPass } from "three-stdlib";
 
 export default class ThreeCanvas extends React.Component {
   constructor(props) {
@@ -18,6 +20,9 @@ export default class ThreeCanvas extends React.Component {
     this.threeCanvas = React.createRef();
     this.addModel = this.addModel.bind(this)
     this.animate = this.animate.bind(this)
+
+    // this.renderPass= null
+    // this.composer= null
   }
 
   init(){
@@ -35,20 +40,35 @@ export default class ThreeCanvas extends React.Component {
       0.1, 
       1000
     )
-    this.state.camera.position.set(0, 0, this.props.zoom)
+    this.state.camera.position.set(this.props.cameraPos.x, this.props.cameraPos.y, this.props.cameraPos.z)
+
+    // this.renderPass = new RenderPass(this.state.scene, this.state.camera)
+    // this.composer = new EffectComposer(this.state.renderer)
+    // this.composer.addPass(this.renderPass)
+
+    // let bloomPass = new UnrealBloomPass(
+    //   new THREE.Vector2(width, height),
+    //   1.6,
+    //   0.1,
+    //   0.1
+    // )
+    // bloomPass.strength = 0.5
+    // this.composer.addPass(bloomPass)
 
     this.state.controls = new OrbitControls(this.state.camera, this.state.renderer.domElement)
-    // this.state.controls.enableRotate = false;
-    this.state.controls.enableZoom = false;
-    // this.state.controls.enablePan = false;
+    this.state.controls.enableRotate = this.props.enableControl;
+    this.state.controls.enableZoom = this.props.enableControl;
+    this.state.controls.enablePan = this.props.enableControl;
     
     let pointlight =  new THREE.PointLight(0xffffff, 1)
-    pointlight.position.set(100, 100, 100)
+    pointlight.position.set(50, 100, 100)
     this.state.scene.add(pointlight)
     
     this.state.renderer.outputEncoding = THREE.sRGBEncoding
     this.state.renderer.toneMapping = THREE.ACESFilmicToneMapping
     this.state.renderer.toneMappingExposure = 1.25
+
+    this.start()
   }
 
   animate(){
@@ -56,9 +76,10 @@ export default class ThreeCanvas extends React.Component {
     this.state.controls.update()
     this.state.controls.enableDamping = true;
     this.state.renderer.render(this.state.scene, this.state.camera)
+    // this.composer.render()
   }
 
-  addModel(name, glbModel, quantity, scale){
+  addModel(name, glbModel, quantity, scale, color = null, mapImg = null){
     let THIS = this
     let envMapLoader = new THREE.PMREMGenerator(this.state.renderer)
     for(let i=0; i<quantity; i++){
@@ -86,22 +107,32 @@ export default class ThreeCanvas extends React.Component {
             //   let material = new THREE.MeshPhysicalMaterial(Materialprop);
             //   object.material = material;
             // })
+            let displacementMap = null
+            if (mapImg){
+              displacementMap = new THREE.TextureLoader().load(mapImg);
+              displacementMap.encoding = THREE.sRGBEncoding
+              displacementMap.wrapS = THREE.RepeatWrapping;
+              displacementMap.wrapT = THREE.RepeatWrapping;
+              displacementMap.repeat.set( 2, 2 );
+            }
             const Materialprop = {
               clearcoat: 1.0,
-              cleacoatRoughness: 0.1,
+              clearcoatRoughness: 0.1,
               metalness: 1,
               roughness: 0.8,
-              color: 0x5a2c40,
+              color: color,
+              map: displacementMap,
             }
             let material = new THREE.MeshPhysicalMaterial(Materialprop);
             object.material = material;
+            object.name = name
             this.setState(prevState => {
-                let glb = { ...prevState.glb };  // creating  of state variable jasper
-                glb[quantity>0 ?name+i :name] = object  
-                return { 
+                let glb = { ...prevState.glb }
+                glb[quantity>0 ?name+i :name] = object
+                return {
                     glb,
                     root: gltf.scene
-                }                                 // return new object jasper object
+                }
             }, ()=>{
               object.scale.set(scale, scale, scale)
               this.state.scene.add(object)
@@ -114,19 +145,28 @@ export default class ThreeCanvas extends React.Component {
     }
   }
 
+  start(){
+    if (this.props.startAnimate && !this.state.animateCalled){
+      this.setState({animateCalled: true}, ()=>{
+        this.props.models.map((model)=>{
+          this.addModel(model.name, model.modelFile, model.quantity, model.scale, model.color, model.mapImg)
+        })
+        if(this.props.extras){
+          this.props.extras.map((extra)=>{
+            this.state.scene.add(extra)
+          })
+        }
+        this.animate()
+      })
+    }
+  }
+
   componentDidMount(){
     this.init()
   }
 
   componentDidUpdate(){
-    if (this.props.startAnimate && !this.state.animateCalled){
-      this.setState({animateCalled: true}, ()=>{
-        this.props.models.map((model)=>{
-          this.addModel(model.name, model.modelFile, model.quantity, model.scale)
-        })
-        this.animate()
-      })
-    }
+    this.start()
   }
 
   render(){
@@ -134,5 +174,4 @@ export default class ThreeCanvas extends React.Component {
       <div id="three" className="threeContainer" ref={this.threeCanvas}/>
     )
   }
-
 }

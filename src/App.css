@@ -3,7 +3,16 @@
   overflow-x:hidden;
   display: flex;
   flex-direction: column;
+  background-color: rgb(33, 37, 41);
 }
+
+.ending{
+ height: fit-content;
+ width: 100%;
+ margin: 20px 0px 20px 0px;
+ color: rgb(199, 206, 212);
+}
+
 html {
   scroll-behavior: smooth;
 }

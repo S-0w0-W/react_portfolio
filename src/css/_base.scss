@@ -1,0 +1,197 @@
+$button-outline: #8f4d13;
+
+.landing_page {
+	width: 100vw;
+	height: 100vh;
+	// margin-top: 50px;
+
+	&.contact {
+		height: 40vh;
+	}
+
+	&.projects {
+		height: fit-content;
+	}
+}
+
+.background {
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: 1;
+
+	.modal {
+		height: 100%;
+		width: 100%;
+	}
+
+	@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+		.modal {
+			-webkit-backdrop-filter: blur(6px);
+			backdrop-filter: blur(6px);
+		}
+
+		.warning {
+			display: none;
+		}
+	}
+}
+
+.landing_page_content {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	// margin-top: 50px;
+
+	.signature_container {
+		display: flex;
+		justify-content: center;
+	}
+
+	.landing_description {
+		font-size: 25px;
+		font-weight: 400;
+		color: rgb(198, 209, 209);
+		letter-spacing: .15em;
+		padding: 0px 10px 0px 10px;
+	}
+}
+
+.typewriter_container {
+
+	&.landing_text {
+		padding-top: 10vh;
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.typewriter {
+	width: fit-content;
+	display: flex;
+}
+
+.typewriter p {
+	color: rgb(198, 209, 209);
+	// font-family: monospace;
+	font-size: 25px;
+	font-weight: 400;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	overflow: hidden;
+	/* Ensures the content is not revealed until the animation */
+	border-right: .15em solid orange;
+	/* The typwriter cursor */
+	white-space: nowrap;
+	/* Keeps the content on a single line */
+	letter-spacing: .15em;
+	/* Adjust as needed */
+	animation:
+		typing 1.5s steps(30, end) forwards,
+		blink-caret 2s;
+}
+
+@keyframes typing {
+	from {
+		width: 0
+	}
+
+	to {
+		width: 100%
+	}
+}
+
+@keyframes blink-caret {
+	from {
+		border-color: transparent
+	}
+
+	to {
+		border-color: orange
+	}
+}
+
+.divider_container{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding-right: 5px;
+	padding: 20px 0px 20px 5px;
+
+	&.ver{
+		height: 100%;
+		width: fit-content;
+		flex-direction: column;
+		position: relative;
+
+		.divider{
+			width: 2px;
+			height: 90%;
+			margin: 0;
+		}
+	}
+
+	&.contact{
+		.divider{
+			width: 350px;
+			margin: 0px 20px 0px 20px;
+		}
+	}
+
+	.divider{
+		background-color: aliceblue;
+		height: 2px;
+		width: 90%;
+		margin-right: 20px;
+	}
+}
+
+.icon{
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 60px;
+  height: 100%;
+	cursor: pointer;
+
+	&:hover, &:focus {
+    animation: bellshake .5s cubic-bezier(.36,.07,.19,.97) both;
+    backface-visibility: hidden;
+    transform-origin: top center;
+  }
+
+	@keyframes bellshake {
+		0% { transform: rotate(0); }
+		15% { transform: rotate(5deg); }
+		30% { transform: rotate(-5deg); }
+		45% { transform: rotate(4deg); }
+		60% { transform: rotate(-4deg); }
+		75% { transform: rotate(2deg); }
+		85% { transform: rotate(-2deg); }
+		92% { transform: rotate(1deg); }
+		100% { transform: rotate(0); }
+	}
+
+  &.contact{
+    width: 60px;
+    height: 60px;
+  }
+
+  &.email{
+    background-image: url(../assets/icons/email2.svg);
+  }
+  &.github{
+    background-image: url(../assets/icons/github.png);
+  }
+  &.linkedin{
+    background-image: url(../assets/icons/linkedin.png);
+  }
+}
+
+.verCenter{
+	height: 100%;
+	width: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}

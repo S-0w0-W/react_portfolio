@@ -15,7 +15,7 @@ export default class SignatureSvg extends React.Component{
       targets: '#signature path',
       strokeDashoffset: [anime.setDashoffset, 0],
       easing: 'easeInOutSine',
-      duration: 900,
+      duration: this.props.duration,
       delay: function(el, i) { return i * 50 },
       direction: 'alternate',
       loop: false
@@ -24,6 +24,9 @@ export default class SignatureSvg extends React.Component{
 
   componentDidMount(){
     this.handleSig()
+    setTimeout(() => {
+      this.props.done()
+    }, (this.props.duration + 300))
   }
   render() {
     return(
@@ -34,8 +37,8 @@ export default class SignatureSvg extends React.Component{
           fill: 'none', 
           stroke: 'white', 
           strokeWidth: '15px',
-          width: '80%',
-          marginTop: '20vh'
+          height: this.props.height,
+          marginTop: this.props.marginTop
         }}
       >
         <g opacity="1">
