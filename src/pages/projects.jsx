@@ -1,12 +1,14 @@
 import React from "react";
 import "../css/_base.scss"
 import "../css/_projects.scss"
+import "../css/_projectCard.scss"
 import ThreeCanvas from "../components/threeJS/threeCanvas";
 import Cube from "../assets/models/rounded_cube.glb"
 import theBoys from "../assets/images/the_boys.jpg"
 import { Observe } from "./utils/observe";
 import { projectList } from "../assets/pageContents/projects/projectList"
 import AudioVis from "../assets/models/audioVis.glb"
+import ProjectCard from "../components/projectCard";
 
 export default class Projects extends React.Component {
   constructor(props) {
@@ -219,15 +221,12 @@ export default class Projects extends React.Component {
               <div className="projects" ref={this.projectCardRef}>
                 {projectList.map((project, index) => (
                   <div id={`project_${index}`}>
-                    <div className="projectCard_container">
-                      <div className="projectCard_hoverarea">
-                        <div className="img_container"/>
-                        <div className='projectCard' id={`projectCard_${index}`}>
-                          <div className="projectTitle">{`${project.name}:`}</div>
-                          <div className="projectPeriod">{project.timePeriod}</div>
-                        </div>
-                      </div>
-                    </div>
+                    <ProjectCard
+                      title={project.name}
+                      description={project.description}
+                      imageUrl={project.imageUrl}
+                      linkUrl={project.linkUrl}
+                    />
                   </div>
                 ))}
               </div>
