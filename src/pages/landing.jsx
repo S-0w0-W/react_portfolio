@@ -62,7 +62,7 @@ export default class Landing extends React.Component {
                 <div className="landing_description"
                   data-aos="fade-up"
                   data-aos-duration="1200">
-                  Welcome to my portfolio!
+                  Welcome to my site!
               </div>
               }
             </div>
