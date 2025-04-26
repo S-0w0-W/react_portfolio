@@ -2,12 +2,13 @@ import React from "react";
 import "../css/_base.scss"
 import "../css/_about.scss"
 import { Observe } from "./utils/observe";
-import cringe from "../assets/images/cringe.jpg"
+import cringe from "../assets/images/cringe2.jpg"
 import ResumePDF from "../assets/documents/resume.pdf"
 
 import cube from "../assets/models/rounded_cube.glb"
 import ThreeCanvas from "../components/threeJS/threeCanvas";
 import * as THREE from "three";
+import ArrowSvg from "../assets/images/arrowSvg";
 
 export default class About extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class About extends React.Component {
     this.threeCanvas = React.createRef();
     this.animate = this.animate.bind(this)
     this.timeStamp = 0
+    this.intersectionRatio = 0
   }
 
   componentDidMount() {
@@ -30,6 +32,7 @@ export default class About extends React.Component {
 
     let handleIntersect = (entries) => {
       entries.forEach((entry) => {
+        this.intersectionRatio = entry.intersectionRatio
         this.props.trackpage(entry.intersectionRatio)
       })
     }
@@ -145,16 +148,24 @@ export default class About extends React.Component {
                       updateModelList={(models) => this.setState({ models })}
                       updateExtraList={(extras) => this.setState({ extras })}
                     />
-                  </div>
-                  <div className="resume"
-                    data-aos="fade-up"
-                  >
-                    ☝ Click for resume ☝
+                    <div className="click-resume-prompt">
+                      <div style={{width:'100px', transform: "scale(-1, -1)"}}>
+                        <ArrowSvg
+                          duration={500}
+                          height={'100%'}
+                          pageOverlap={this.intersectionRatio}
+                        />
+                      </div>
+                      <div className="prompt-text"
+                        data-aos="fade-up"
+                      >
+                        Click for Resume!
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="about_desc">
-                  I am a graduate from the University of Auckland<br/>
-                  I like anime and food
+                  Oxygen enjoyer and food enthusiast <br/>
                 </div>
               </div>
             </div>
