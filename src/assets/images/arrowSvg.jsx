@@ -28,14 +28,11 @@ export default class ArrowSvg extends React.Component{
   }
 
   componentDidUpdate(prevProps){
-    console.log("updated", this.props.pageOverlap)
     if(this.props.pageOverlap > 0.9 && prevProps.pageOverlap <= 0.9){
-      console.log("play")
       this.animation.play()
     }
 
     if(this.props.pageOverlap < 0.5 && prevProps.pageOverlap >= 0.5){
-      console.log("reverse")
       this.animation.play()
     }
   }

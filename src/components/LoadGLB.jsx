@@ -172,7 +172,7 @@ export default class LoadGLB extends React.Component {
         let intersects = this.state.Raycaster.intersectObjects(Object.values(this.state.glb))
         // console.log(intersects)
         if(intersects.length > 0){
-            console.log(intersects)
+            // console.log(intersects)
         }
     }
     
@@ -180,10 +180,8 @@ export default class LoadGLB extends React.Component {
     addModel(name, glbModel){
         let THIS = this
         let envMapLoader = new THREE.PMREMGenerator(this.state.renderer)
-        console.log(envMapLoader)
         this.state.loader.load(glbModel, (gltf)=>{
             gltf.scene.traverse(function (object){
-                console.log(object)
 
                 if ( object instanceof THREE.Mesh ) {
 
@@ -210,7 +208,6 @@ export default class LoadGLB extends React.Component {
                         let material = new THREE.MeshPhysicalMaterial(Materialprop);
                         object.material = material;
                     })
-                    console.log(gltf.scene)
                     THIS.setState(prevState => {
                         let glb = { ...prevState.glb };  // creating  of state variable jasper
                         glb[name] = object  
@@ -219,7 +216,6 @@ export default class LoadGLB extends React.Component {
                             root: gltf.scene
                         }                                 // return new object jasper object
                     }, ()=>{
-                        console.log(THIS)
                         THIS.state.root.scale.set(60, 60, 60)
                         THIS.state.root.lookAt(0, 1, 0)
                         
@@ -273,11 +269,9 @@ export default class LoadGLB extends React.Component {
         })
 
         this.threeCanvas.current.parentNode.addEventListener("mouseenter", ()=>{
-            console.log('in canvas')
             THIS.setState({insideCanvas: true})
         })
         this.threeCanvas.current.parentNode.addEventListener("mouseleave", ()=>{
-            console.log('out canvas')
             THIS.setState({insideCanvas: false})
 
         })
@@ -285,7 +279,6 @@ export default class LoadGLB extends React.Component {
 
     componentDidUpdate(){
         if (this.props.startAnimate && !this.state.animateCalled){
-            console.log("inside")
             this.setState({animateCalled: true}, ()=>{
                 this.addModel('github', Github)
                 // this.addModel('bread', bread)
