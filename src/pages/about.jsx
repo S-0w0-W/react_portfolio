@@ -103,6 +103,8 @@ export default class About extends React.Component {
   }
 
   render() {
+    let profilePicWidth = window.innerWidth * (window.innerWidth < 850 ? 0.8 : 0.5)
+
     return (
       <div className="landing_page about">
         <div className="background" id="page_about">
@@ -112,6 +114,7 @@ export default class About extends React.Component {
                 <div className="profile_pic_container">
                   <div className="profile_pic"
                     onClick={()=>window.open(ResumePDF)}
+                    style={{width: `${profilePicWidth}px`, height: `${profilePicWidth}px`}}
                   >
                     <ThreeCanvas
                       id='ThreeCanvas'
@@ -149,7 +152,7 @@ export default class About extends React.Component {
                       updateExtraList={(extras) => this.setState({ extras })}
                     />
                     <div className="click-resume-prompt">
-                      <div style={{width:'100px', transform: "scale(-1, -1)"}}>
+                      <div className="prompt-arrow">
                         <ArrowSvg
                           duration={500}
                           height={'100%'}
