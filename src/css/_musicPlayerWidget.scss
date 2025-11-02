@@ -1,0 +1,66 @@
+.music_player_widget{
+  height: 150px;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+
+  .desc_and_controls_container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    justify-content: space-between;
+
+    .track_info{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+
+      .track_name{
+        font-size: 20px;
+        text-align: start;
+      }
+
+      .artist_name{
+        font-size: 20px;
+        color: #c9d0d6;
+        text-align: start;
+      }
+    }
+
+    .audio_control{
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .audio_icon{
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+        
+        &.skip{
+          background-image: url('../assets/icons/skip.svg');
+
+          &.prev{
+            transform: scale(-1, 1);
+          }
+        }
+
+        &.pause{
+          background-image: url('../assets/icons/pause.svg');
+        }
+
+        &.play{
+          background-image: url('../assets/icons/play.svg');
+        }
+      }
+    }
+  }
+}

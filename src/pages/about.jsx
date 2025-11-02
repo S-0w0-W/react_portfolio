@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/_base.scss"
 import "../css/_about.scss"
+import "../css/_musicPlayerWidget.scss"
 import { Observe } from "./utils/observe";
 import cringe from "../assets/images/cringe2.jpg"
 import ResumePDF from "../assets/documents/resume.pdf"
@@ -9,6 +10,10 @@ import cube from "../assets/models/rounded_cube.glb"
 import ThreeCanvas from "../components/threeJS/threeCanvas";
 import * as THREE from "three";
 import ArrowSvg from "../assets/images/arrowSvg";
+import ArrowRIghtAngleSvg from "../assets/images/arrow_right_angle";
+
+import { GetSpotifyPlaylistTracks } from "./utils/observe";
+import MusicPlayerWidget from "../components/MusicPlayerWidget";
 
 export default class About extends React.Component {
   constructor(props) {
@@ -20,14 +25,22 @@ export default class About extends React.Component {
       test: false,
       models: null,
       extras: [],
+      tracks: [],
+      musicPlayerWidgetData: {
+        trackImgUrl: '',
+        trackName: '',
+        artistName: '',
+        linkUrl: '',
+      }
     }
     this.threeCanvas = React.createRef();
     this.animate = this.animate.bind(this)
     this.timeStamp = 0
     this.intersectionRatio = 0
+    this.currTrackIndex = 0
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     window.addEventListener('resize', this.handleResize)
 
     let handleIntersect = (entries) => {
@@ -48,6 +61,45 @@ export default class About extends React.Component {
 
     this.setState({ extras: [...this.state.extras, mesh] })
     this.animate()
+
+    let tracks = await GetSpotifyPlaylistTracks({
+      "5NfariAq7QpIho95rsjvbI": 10,
+      "58FzrDwAvFtUu1HXa8J5Ep": 20,
+      "6PRPIORY3xM68kfBrWvlIA": 10,
+    })
+    this.setState({tracks}, ()=>this.handleTrackChange())
+  }
+
+  handleTrackChange = (skip_amount = 0, removeSong = false) => {
+    let new_track_index = this.currTrackIndex + skip_amount
+    let updatedTracks = this.state.tracks
+    if (removeSong){
+      updatedTracks = updatedTracks.filter((_, index) => index !== new_track_index)
+    }
+    let tot_tracks_length = updatedTracks.length
+
+    if (new_track_index < 0) new_track_index = 0
+    if (new_track_index > tot_tracks_length-1) new_track_index = tot_tracks_length
+
+    const {
+      track: {
+        name: trackName,
+        uri: linkUrl,
+        album: { images: albumImages },
+        artists: artistList
+      }
+    } = updatedTracks[new_track_index]
+
+    const trackImgUrl = albumImages?.[0]?.url || ''
+    const artistName = artistList?.map(a => a.name).join(", ") || "Unknown Artist"
+
+    let musicPlayerWidgetData = {
+      trackImgUrl,
+      trackName,
+      artistName,
+      linkUrl,
+    }
+    this.setState({ musicPlayerWidgetData, tracks: updatedTracks }, ()=>this.currTrackIndex = new_track_index)
   }
 
   animate() {
@@ -169,6 +221,31 @@ export default class About extends React.Component {
                 </div>
                 <div className="about_desc">
                   Oxygen enjoyer and food enthusiast <br/>
+                  <div className="music_container">
+                    <div className="click-resume-prompt">
+                      <div className="prompt-arrow">
+                        <ArrowRIghtAngleSvg
+                          duration={500}
+                          height={'100%'}
+                          pageOverlap={this.intersectionRatio}
+                        />
+                      </div>
+                      <div className="prompt-text"
+                        data-aos="fade-up"
+                      >
+                        Some songs I like, 🅱️angers only 🔥🔥🔥
+                      </div>
+                    </div>
+                    <div className="music_player_widget_container">
+                      <MusicPlayerWidget
+                        trackImgUrl={this.state.musicPlayerWidgetData.trackImgUrl}
+                        trackName={this.state.musicPlayerWidgetData.trackName}
+                        artistName={this.state.musicPlayerWidgetData.artistName}
+                        linkUrl={this.state.musicPlayerWidgetData.linkUrl}
+                        trackHandler={(skipAmount, remove)=>this.handleTrackChange(skipAmount, remove)}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
