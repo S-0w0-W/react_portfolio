@@ -27,6 +27,7 @@ export default function MusicPlayerWidget({
         audio.crossOrigin = "anonymous"
         audio.src = data.data[0].preview
         audio.load()
+        audio.play()
         audio.volume = 0.5
         audio.onended = () => {
           trackHandler(1)

@@ -158,6 +158,7 @@ export default class AudioVisualiser extends React.Component{
     audio.crossOrigin = "anonymous"
     audio.src = url || URL.createObjectURL(audioFile)
     audio.load()
+    audio.play()
     audio.volume = 0.5
     audio.play()
     audio.onended = () => {
