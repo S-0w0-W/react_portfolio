@@ -20,12 +20,20 @@
       .track_name{
         font-size: 20px;
         text-align: start;
+
+        @media only screen and (max-width: 850px) {
+          font-size: 18px;
+        }
       }
 
       .artist_name{
         font-size: 20px;
         color: #c9d0d6;
         text-align: start;
+
+        @media only screen and (max-width: 850px) {
+          font-size: 18px;
+        }
       }
     }
 

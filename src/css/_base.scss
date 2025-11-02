@@ -10,7 +10,13 @@ $button-outline: #8f4d13;
 	}
 
 	&.projects {
-		height: fit-content;
+		height: 120vh;
+	}
+
+	@media only screen and (max-width: 850px) {
+		&.about {
+			height: 120vh;
+		}
 	}
 }
 

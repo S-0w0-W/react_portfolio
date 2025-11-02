@@ -66,6 +66,10 @@ export default class About extends React.Component {
       "5NfariAq7QpIho95rsjvbI": 10,
       "58FzrDwAvFtUu1HXa8J5Ep": 20,
       "6PRPIORY3xM68kfBrWvlIA": 10,
+      "3WPjvXTO4Ux9v3ylbhQtCu": 20,
+      "1CD4wGDLiuGEhW9W5Oa6nE": 25,
+      "0IRxJDJf7bWKsjHf1Dm18k": 30,
+      "2Psp006KQbVZ4UCfR29Lmk": 30,
     })
     this.setState({tracks}, ()=>this.handleTrackChange())
   }
@@ -220,7 +224,9 @@ export default class About extends React.Component {
                   </div>
                 </div>
                 <div className="about_desc">
-                  Oxygen enjoyer and food enthusiast <br/>
+                  <div className="about_text">
+                    Oxygen enjoyer and food enthusiast <br/>
+                  </div>
                   <div className="music_container">
                     <div className="click-resume-prompt">
                       <div className="prompt-arrow">
