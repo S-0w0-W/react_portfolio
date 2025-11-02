@@ -12,7 +12,7 @@ export default function MusicPlayerWidget({
 
   useEffect(()=>{
     let query = `artist:"${artistName}" track:"${trackName}"`
-    fetch(`https://api.deezer.com/search?q=${encodeURIComponent(query)}`)
+    fetch(`https://spotify-proxy-beta.vercel.app/api/deezer?type=search&query=${encodeURIComponent(query)}`)
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`)
@@ -27,7 +27,6 @@ export default function MusicPlayerWidget({
         audio.crossOrigin = "anonymous"
         audio.src = data.data[0].preview
         audio.load()
-        audio.play()
         audio.onended = () => {
           trackHandler(1)
         }
