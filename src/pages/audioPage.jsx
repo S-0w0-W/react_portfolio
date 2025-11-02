@@ -16,19 +16,19 @@ export default class AudioVis extends React.Component {
 
   deezerFetch = async(event) => {
     // var searchTerm = 'miku'
-    if (event.key !== 'Enter') return
-    const url = "https://spotify-proxy-beta.vercel.app/api/deezer?type=search&query=" + this.state.searchTerm
-    try {
-      const response = await fetch(url)
-      if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`)
+    if (event.key === 'Enter'){
+      const url = "https://spotify-proxy-beta.vercel.app/api/deezer?type=search&query=" + this.state.searchTerm
+      try {
+        const response = await fetch(url)
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`)
+        }
+        const json = await response.json()
+        var currAudioUrl = json.data[0]?.preview || null
+        this.setState({currAudioUrl})
+      } catch (error) {
+        console.error(error.message)
       }
-
-      const json = await response.json()
-      var currAudioUrl = json.data[0]?.preview || null
-      this.setState({currAudioUrl})
-    } catch (error) {
-      console.error(error.message)
     }
   }
 
